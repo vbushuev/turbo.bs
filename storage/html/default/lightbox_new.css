@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html PUBLIC>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="yandex-verification" content="77ee97fc54a6939f" />
+    <meta name="google-site-verification" content="P-gRv9M6QhJrHZwQ-jjMHNrRdnGEVNGQV4ZDoiyjQ4E" />
+    <link href="/theme/common/Images/favicon.ico" rel="shortcut icon" />
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+        @font-face {
+            font-family: "Segoe UI";
+            font-weight: 300;
+            src: local("Segoe UI Light"),
+                 url('../fonts/segoeuil-webfont.woff') format('woff');
+        }
+        @font-face {
+            font-family: "Segoe UI";
+            font-weight: 400;
+            src: local("Segoe UI");
+        }
+        @font-face {
+            font-family: "Segoe UI";
+            font-weight: 600;
+            src: local("Segoe UI Semibold");
+        }
+        @font-face {
+            font-family: "Segoe UI";
+            font-weight: 700;
+            src: local("Segoe UI Bold");
+        }
+        @font-face {
+            font-family: "Segoe UI";
+            font-style: italic;
+            font-weight: 400;
+            src: local("Segoe UI Italic");
+        }
+        @font-face {
+            font-family: "Segoe UI";
+            font-style: italic;
+            font-weight: 700;
+            src: local("Segoe UI Bold Italic");
+        }
+        body {
+            font-family: "Segoe UI","Helvetica Neue","Arial","Tahoma",sans-serif;
+            font-size: 16px;
+            line-height: 1.4;
+            color: #404040;
+        }
+        .page {
+            margin: 0 auto;
+            max-width: 1140px;
+            width: auto;
+            *width: 960px;
+            min-width: 960px;
+        }
+        .logo {
+            margin: 30px 0 147px ;
+        }
+        .content-wrap {
+            margin: 0 auto 0;
+        }
+        .colLeft {
+            width: 62%;
+            float: left;
+        }
+        .colRight {
+            width: 38%;
+            float: left;
+        }
+        .contentHeading {
+            font-size: 45px;
+            font-weight: 300;
+            line-height: 1.7;
+        }
+        .contentSubhead {
+            font-size: 16px;
+            margin-bottom: 35px;           
+            font-weight: 400;
+        }
+        p {
+            line-height: 1.4;
+            margin: 0 0 10px;
+        }
+        p.extraSize {
+            font-size: 22px;
+            line-height: 1.4;
+            margin: 0 0 20px;
+        }
+        .phone {
+            font-size: 47px;
+            font-weight: 300;
+            line-height: 1.2;
+        }
+        .menuHeader {
+            margin: 75px 0 35px;
+        }
+        .menuList {
+            list-style-type: none;
+            padding: 0 0 0 25px;
+        }
+        .menuList-item {
+            position: relative;
+            line-height: 1.9;
+        }
+        .menuList-item:before {
+            content: '\2014';
+            position: absolute;
+            left: -25px;
+        }
+        a {
+            color: #0080D3;
+            text-decoration: none;
+        }
+        a:hover, a:focus, a:active {
+            color: #4BB8FF;
+            text-decoration: underline;
+        }
+    </style>
+    <title>Страница не найдена</title>
+</head>
+
+<body>
+    <div class="page">
+        <div class="logo">
+            <a href="/">
+                
+            </a>
+        </div>
+        <div class="content-wrap colLeft">
+            <h2 class="contentHeading">Страница не найдена</h2>
+            <h3 class="contentSubhead">Ошибка 404</h3>
+            <p class="extraSize">
+                Возможно вы ошиблись набирая адрес, <br />
+                или данная страница была удалена. <br />
+                Попробуйте начать работу с <a href="/">главной страницы</a>.
+            </p>
+        
+            <p class="extraSize">
+                Если вы считаете, что адрес страницы верный <br />
+                и не работает по нашей вине - сообщите нам об этом.
+            </p>
+                
+            <p><a href="/feedback">Напишите</a> или позвоните нам <br />
+                <span class="phone">8 800 500-09-75</span>
+            </p>
+            
+        </div>
+        <div class="content-wrap colRight">
+            <p class="menuHeader">
+                Начните с одной из этих страниц:
+            </p>
+                
+            <ul class="menuList">
+                <li class="menuList-item"><a href="/">Главная страница</a></li>
+                <li class="menuList-item"><a href="/features">Возможности</a></li>
+                <li class="menuList-item"><a href="/price">Цены</a></li>
+                <li class="menuList-item"><a href="/help">Помощь</a></li>
+                <li class="menuList-item"><a href="/blog">Блог</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

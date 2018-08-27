@@ -19,9 +19,12 @@
         "lodash": "^4.17.4",
         "popper.js": "^1.12",
         "react": "^16.2.0",
-        "react-dom": "^16.2.0"
+        "react-dom": "^16.2.0",
+        "stylus": "^0.54.5",
+        "stylus-loader": "^3.0.2"
     },
     "dependencies": {
+        "gulp": "^3.9.1",
         "react-bootstrap": "^0.32.1",
         "react-redux": "^5.0.7",
         "react-redux-socket": "^2.2.3",

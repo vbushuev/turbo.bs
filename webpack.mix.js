@@ -11,4 +11,12 @@ let mix = require('laravel-mix');
  |
  */
 
+
 mix.react('resources/assets/js/app.js', 'public/js');
+
+mix.stylus('resources/assets/stylus/react.styl', 'public/css');
+
+mix.stylus('resources/assets/page/start.styl', 'public/css')
+    .js('resources/assets/page/start.js','public/js')
+    .copy('resources/assets/semantic/semantic.min.css', 'public/css/semantic.min.css')
+    .copy('resources/assets/semantic/themes', 'public/css/themes');
