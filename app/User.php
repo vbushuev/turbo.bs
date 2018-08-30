@@ -29,4 +29,16 @@ class User extends Authenticatable
     public function isAdmin(){
         return in_array($this->role,['admin','superadmin','system']);
     }
+    public function companies(){
+        return $this->hasMany('App\Company');
+    }
+    public function reports(){
+        return $this->hasMany('App\Report');
+    }
+    public function files(){
+        return $this->hasMany('App\File');
+    }
+    public function scopeOnlyCustomers($query){
+        return $query->whereIn('role',['customer']);
+    }
 }

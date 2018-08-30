@@ -11,8 +11,19 @@
 |
 */
 
+Route::domain(env('ADMIN_DOMAIN'))->group(function(){
+    Route::get('/', 'AdminController@index')->name('admin');
+});
+
 Route::get('/', function () {
     return view('start');
 });
 
+Route::middleware(['auth'])->group(function(){
+    Route::get('/admin', 'AdminController@index')->name('admin');
+    Route::resource('home', 'HomeController');
+    Route::resource('file', 'FileController');
+    Route::resource('report', 'ReportController');
+    Route::resource('company', 'CompanyController');
+});
 Auth::routes();
