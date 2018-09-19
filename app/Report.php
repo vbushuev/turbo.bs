@@ -9,7 +9,7 @@ class Report extends Model
     protected $fillable = [
         'name', 'user_id','status'
     ];
-    public function report(){
-        return $this->belongsTo('App\Company');
+    public function files(){
+        return $this->hasMany('App\File');
     }
 }

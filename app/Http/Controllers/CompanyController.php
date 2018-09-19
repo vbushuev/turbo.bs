@@ -2,8 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Log;
 use App\Company;
+use App\File;
+use App\Report;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class CompanyController extends Controller
 {
@@ -35,7 +42,29 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $data["user_id"] = $request->user()->id;
+        $data["status"] = 'new';
+        $validator = Validator::make($data, [
+            "user_id" => 'required|exists:users,id',
+            "name"=>'string|required',
+            "inn"=>'numeric|required',
+            "kpp"=>'numeric|required',
+            "okved"=>'string|required',
+            "accountant"=>'string',
+            "description"=>'string',
+        ]);
+        if ($validator->fails()) {
+            Log::debug('Validation:'.json_encode($validator) );
+            return Redirect::back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        $company = Company::create($data);
+        return redirect()
+            ->back()
+            ->with('notification',"Компания <b>{$company->name}</b> добавлена")
+            ->withInput();
     }
 
     /**
@@ -55,9 +84,9 @@ class CompanyController extends Controller
      * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function edit(Company $company)
+    public function edit(Request $request, Company $company)
     {
-        //
+
     }
 
     /**
@@ -69,7 +98,11 @@ class CompanyController extends Controller
      */
     public function update(Request $request, Company $company)
     {
-        //
+        $company->update($request->all());
+        return redirect()
+            ->back()
+            ->with('notification',"Компания <b>{$company->name}</b> изменена")
+            ->withInput();
     }
 
     /**
@@ -80,6 +113,9 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
-        //
+        $company->delete();
+        return redirect()
+            ->back()
+            ->with('notification',"Компания <b>{$company->name}</b> удалена");
     }
 }

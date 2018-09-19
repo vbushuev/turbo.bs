@@ -1,0 +1,24 @@
+.vsb.toggler {
+  cursor: pointer;
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+  height: 2em;
+  line-height: 2em;
+  border: solid 1px transparent;
+  border-radius: 0.1em;
+  display: inline-block;
+  padding: 0 1em;
+}
+.vsb.toggler:hover {
+  border: solid 1px #808080;
+}
+.vsb.toggler .fas {
+  margin-left: 0.5em;
+}
+.vsb.list .item {
+  width: 100%;
+  display: block;
+}
+.vsb.list .right.aligned {
+  float: right;
+}

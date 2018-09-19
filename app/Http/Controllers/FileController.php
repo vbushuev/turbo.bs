@@ -81,6 +81,7 @@ class FileController extends Controller
         }
         $file=$request->file->store('public');
         Log::debug("File: ".$file);
+        $data['file']=$file;
         $file = File::create($data);
         return redirect()->route('home.index')->with('status',__('home.status.file_uploaded'));
     }
@@ -127,6 +128,7 @@ class FileController extends Controller
      */
     public function destroy(File $file)
     {
-        //
+        Storage::delete($file->file);
+        $file->delete();
     }
 }

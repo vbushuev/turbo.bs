@@ -83,16 +83,16 @@
             <table class="ui table">
                 <thead>
                     <tr>
-                        <th>{{ __('admin.files.name') }}</th>
-                        <th>{{ __('admin.files.file') }}</th>
-                        <th>{{ __('admin.files.date') }}</th>
+                        <th>{{ __('admin.file.name') }}</th>
+                        <th>{{ __('admin.file.file') }}</th>
+                        <th>{{ __('admin.file.date') }}</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($files as $file)
                     <tr>
                         <td>{{ $file->name }}</td>
-                        <td>{{ $file->file }}</td>
+                        <td><a href="/public/{{ $file->file }}">Скачать <i class="fa fa-file-download"></i></a></td>
                         <td>{{ $file->created_at }}</td>
                     </tr>
                     @endforeach

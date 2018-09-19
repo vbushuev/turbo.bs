@@ -1,0 +1,21 @@
+main-transition = all .2s ease-in;
+.vsb.toggler
+    cursor: pointer;
+    transition: main-transition
+    height: 2em;
+    line-height: 2em;
+    border: solid 1px transparent;
+    border-radius: .1em;
+    display: inline-block;
+    padding:0 1em;
+    &:hover
+        border: solid 1px grey;
+    .fas
+        margin-left:.5em;
+
+.vsb.list
+    .item
+        width:100%;
+        display: block;
+    .right.aligned
+        float: right;
