@@ -111,14 +111,13 @@
                 </div>
             </form>
         </div>
+        @stack('hide')
     </div>
     <script>
         $(function() {
             Kontur.CallbackLightbox.init('.js-callback-link', {
                 lightbox: '#CallRequestLightboxContent',
-                wrapperStyle: {
-                    width: '430px'
-                },
+                wrapperStyle: {width: '430px'},
                 lightboxClass: 'callback-lightbox'
             });
             // Kontur.CallbackLightbox.init('.js-login-link', {

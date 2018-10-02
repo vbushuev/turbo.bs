@@ -116,7 +116,6 @@ var Toggler = function () {
             var _this = this;
 
             this.$toggler.on('click', function (e) {
-
                 _this.redraw(_this.$toggler.hasClass('active'));
             });
         }

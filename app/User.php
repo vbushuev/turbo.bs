@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','role','phone'
+        'name', 'email', 'password','role','phone','status'
     ];
 
     /**
@@ -26,6 +26,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    public function getTitleAttribute(){
+        return ($this->name == "empty" || !strlen(trim($this->name)))?$this->email:$this->name;
+    }
     public function isAdmin(){
         return in_array($this->role,['admin','superadmin','system']);
     }

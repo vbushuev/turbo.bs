@@ -13,7 +13,6 @@ class Toggler {
     }
     bind(){
         this.$toggler.on('click', (e) => {
-
             this.redraw(this.$toggler.hasClass('active'));
         })
     }

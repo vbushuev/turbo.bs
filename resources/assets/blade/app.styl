@@ -1,21 +1,42 @@
 main-transition = all .2s ease-in;
-.vsb.toggler
-    cursor: pointer;
-    transition: main-transition
-    height: 2em;
-    line-height: 2em;
-    border: solid 1px transparent;
-    border-radius: .1em;
-    display: inline-block;
-    padding:0 1em;
-    &:hover
+.vsb
+    &.form
+        padding: 2em;
+        margin:0 -2em;
+        border-radius: .1em;
+        border: solid 1px rgba(0,0,0,.3);
+        box-shadow: 0 0 .2em rgba(0,0,0,.3);
+    &.highlight
+        cursor: pointer;
+        transition: main-transition
+        height: 2em;
+        line-height: 2em;
+        border-radius: .1em;
+        display: inline-block;
+        padding:0 1em;
         border: solid 1px grey;
-    .fas
-        margin-left:.5em;
-
-.vsb.list
-    .item
-        width:100%;
-        display: block;
-    .right.aligned
+        &:hover
+            background-color: grey;
+            color: rgba(255,255,255,.9);
+    &.right.floated
         float: right;
+    &.toggler
+        cursor: pointer;
+        transition: main-transition
+        height: 2em;
+        line-height: 2em;
+        border-radius: .1em;
+        display: inline-block;
+        padding:0 1em;
+        border: solid 1px grey;
+        &:hover,&.active
+            background-color: grey;
+            color: rgba(255,255,255,.9);
+        .fas
+            margin-left:.5em;
+    &.list
+        .item
+            width:100%;
+            display: block;
+        .right.aligned
+            float: right;

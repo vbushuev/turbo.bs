@@ -1,6 +1,7 @@
 <h3 class="ui horizontal divider">
     {{ __('home.files') }}
 </h3>
+<!-- <h2>{{ __('home.upload_file') }}</h2> -->
 @include('file.create')
 <h3 class="ui horizontal divider">
     {{ __('home.uploaded') }}

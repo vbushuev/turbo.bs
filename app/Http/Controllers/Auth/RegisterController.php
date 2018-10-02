@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+
+use Illuminate\Http\Request;
 use App\Notifications\CustomerRegister;
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -52,7 +55,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
 
             'email' => 'required|string|email|max:255|unique:users',
-            'phone' => 'required|string|regex:/(\+7)[0-9]{9}/|unique:users'
+            'phone' => 'required|string|regex:/(\+7)[0-9]{9}/'
             // 'password' => 'required|string|min:6|confirmed',
             // 'name' => 'required|string|max:255',
         ]);
@@ -74,5 +77,16 @@ class RegisterController extends Controller
         ]);
         $customer->notify(new CustomerRegister($customer,$data['password']));
         return $customer;
+    }
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        //$this->guard()->login($user);
+
+        return $this->registered($request, $user)
+                        ?: redirect('/thanks');//redirect($this->redirectPath());
     }
 }

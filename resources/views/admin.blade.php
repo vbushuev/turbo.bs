@@ -1,121 +1,99 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-    <nav class="nav">
-        <a class="nav-link active">
-            {{ __('admin.main') }}
-        </a>
-    </nav>
 
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link active" id="customers-tab" data-toggle="tab" href="#customers" role="tab" aria-controls="customers" aria-selected="true">{{ __('admin.customers') }}</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="reports-tab" data-toggle="tab" href="#reports" role="tab" aria-controls="reports" aria-selected="false">{{ __('admin.reports') }}</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="files-tab" data-toggle="tab" href="#files" role="tab" aria-controls="files" aria-selected="false">{{ __('admin.files') }}</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="companies-tab" data-toggle="tab" href="#companies" role="tab" aria-controls="companies" aria-selected="false">{{ __('admin.companies') }}</a>
-        </li>
-    </ul>
     <div class="tab-content" id="myTabContent">
-        <!-- <div class="ui three steps">
-            <div class="active step">
-                <i class="upload icon"></i>
-                <div class="content">
-                    <div class="title">{{ __('admin.upload') }}</div>
-                </div>
-            </div>
-            <div class="disabled step">
-                <i class="sync icon"></i>
-                <div class="content">
-                    <div class="title">{{ __('admin.wework') }}</div>
-                </div>
-            </div>
-            <div class="disabled step">
-                <i class="checkmark icon"></i>
-                <div class="content">
-                    <div class="title">{{ __('admin.success_work') }}</div>
-                </div>
-            </div>
-        </div> -->
         <div class="tab-pane  show active" id="customers" role="tabpanel" aria-labelledby="customers-tab">
             <h2>
-                {{ __('admin.customers') }}
+                {{ __('home.common') }}
             </h2>
-            <table class="ui table">
-                <tbody>
-                    @foreach($users as $item)
-                    <tr>
-                        <td>{{ $item->name }}</td>
-                        <td>{{ $item->email }}</td>
-                        <td>{{ $item->phone }}</td>
-                        <td>{{ $item->role }}</td>
-                        <td>{{ $item->created_at }}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+            <div class="form">
+                <form class="form-inline">
 
-        </div>
-        <div class="tab-pane " id="reports" role="tabpanel" aria-labelledby="reports-tab">
-            <h3 class="ui horizontal divider">
-                {{ __('admin.reports') }}
-            </h3>
-            <table class="ui table">
-                <tbody>
-                    @foreach($reports as $item)
-                    <tr>
-                        <td>{{ $item->name }}</td>
-                        <td>{{ $item->status }}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-        <div class="tab-pane " id="files" role="tabpanel" aria-labelledby="files-tab">
-            <h3 class="ui horizontal divider">
-                {{ __('admin.files') }}
-            </h3>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"></i></span>
+                            </div>
+                            <input class="form-control" name="search" value="{{ $_GET['search'] ?? '' }}" placeholder="{{ __('admin.search') }}"/>
+                        </div>
+                        <div class="input-group">
+                            <input class="form-control" type="date" name="date" value="{{ $_GET['date'] ?? '' }}" placeholder="{{ __('admin.date') }}"/>
+                        </div>
+                        <div class="input-group">
+                            <select class="form-control" name="status" placeholder="{{ __('admin.status') }}">
+                                <option value="">Все</option>
+                                <option value="new" @if( isset($_GET['status']) && $_GET['status']=="new") selected="selected" @endif>{{ __('home.report.status.new') }}</option>
+                                <option value="fail" @if( isset($_GET['status']) && $_GET['status']=="fail") selected="selected" @endif>{{ __('home.report.status.fail') }}</option>
+                                <option value="done" @if( isset($_GET['status']) && $_GET['status']=="done") selected="selected" @endif>{{ __('home.report.status.done') }}</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-sm">{{ __('admin.search') }}</button>
+                </form>
+            </div>
             <table class="ui table">
                 <thead>
                     <tr>
-                        <th>{{ __('admin.file.name') }}</th>
+                        <th>{{ __('admin.customer') }}</th>
+                        <th>{{ __('admin.report.name') }}</th>
+                        <th>{{ __('admin.report.date') }}</th>
                         <th>{{ __('admin.file.file') }}</th>
-                        <th>{{ __('admin.file.date') }}</th>
+                        <th>{{ __('admin.report.status.title') }}</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($files as $file)
+                    @foreach($files as $item)
+                    @if($item->user->role=="customer")
                     <tr>
-                        <td>{{ $file->name }}</td>
-                        <td><a href="/public/{{ $file->file }}">Скачать <i class="fa fa-file-download"></i></a></td>
-                        <td>{{ $file->created_at }}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-        <div class="tab-pane " id="companies" role="tabpanel" aria-labelledby="companies-tab">
-            <h3 class="ui horizontal divider">
-                {{ __('admin.companies') }}
-            </h3>
-            <table class="ui table">
-                <tbody>
-                    @foreach($companies as $item)
-                    <tr>
-                        <td>{{ $item->name }}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+                        <td>
+                            {{ $item->user->title }}
+                            <br /><small>Зарегестрирован: {{ $item->user->created_at }}</small>
+                            <br /><small>Статус: {{ __('admin.user.status.'.$item->user->status) }}</small>
+                            @if($item->user->status == 'request')
+                                <button class="btn btn-primary" onclick="document.set_user_{{$item->id}}_new.submit();">Подтвертить пользователя</button>
+                                <form action="/user/{{$item->user->id}}" method="POST" name="set_user_{{$item->id}}_new" id="set_user_{{$item->id}}_new">
+                                    {{ csrf_field() }}
+                                    {{ method_field('PUT') }}
+                                    <input type="hidden" name="status" value="new" />
+                                </form>
+                            @elseif($item->user->status == 'new')
+                                <button class="btn btn-primary" onclick="document.set_user_{{$item->id}}_etsp.submit();">ЭЦП получен</button>
+                                <form action="/user/{{$item->user->id}}" method="POST" name="set_user_{{$item->id}}_etsp" id="set_user_{{$item->id}}_etsp">
+                                    {{ csrf_field() }}
+                                    {{ method_field('PUT') }}
+                                    <input type="hidden" name="status" value="ready" />
+                                </form>
+                            @endif
+                        </td>
+                        <td>{{ $item->report->name }}</td>
+                        <td>{{ $item->report->created_at }}</td>
+                        <td><a href="{{ $item->file }}" download>Скачать <i class="fa fa-file-download"></i></a></td>
+                        <td>
+                            {{ __('home.report.status.'.$item->report->status) }}
+                            <br />
+                            @if($item->report->status == 'new')
+                                <button class="btn btn-primary btn-sm" style="display:inline-block" onclick="document.report_{{$item->id}}_done.submit();">{{ __('home.report.status.done') }}</button>
+                                <button class="btn btn-warning btn-sm" style="display:inline-block" onclick="document.report_{{$item->id}}_fail.submit();">{{ __('home.report.status.fail') }}</button>
 
+                                <form action="/report/{{$item->report->id}}" method="POST" name="report_{{$item->id}}_done" id="report_{{$item->id}}_done">
+                                    {{ csrf_field() }}
+                                    {{ method_field('PUT') }}
+                                    <input type="hidden" name="status" value="done" />
+                                </form>
+                                <form action="/report/{{$item->report->id}}" method="POST" name="report_{{$item->id}}_fail" id="report_{{$item->id}}_fail">
+                                    {{ csrf_field() }}
+                                    {{ method_field('PUT') }}
+                                    <input type="hidden" name="status" value="fail" />
+                                </form>
+                            @endif
+
+                        </td>
+                    </tr>
+                    @endif
+                    @endforeach
+                </tbody>
+            </table>
+
+        </div>
     </div>
-    <div class="ui bottom attached tab segment" data-tab="uploaded"></div>
-    <div class="ui bottom attached tab segment" data-tab="reports"></div>
 </div>
 @endsection

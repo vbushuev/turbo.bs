@@ -67,19 +67,19 @@ class FileController extends Controller
         }
         if(!$request->has('report_id')){
             $report = Report::where('name',$data['name'])->first();
-            if(is_null($report))$report = Report::create(['name'=>$data['name'],'user_id'=>$request->user()->id]);
+            if(is_null($report))$report = Report::create(['name'=>$data['name'],'user_id'=>$request->user()->id,'status'=>$request->status]);
             $data['report_id']=$report->id;
         }
-        $validator = Validator::make($data, [
-            "report_id"=>'required|exists:reports,id'
-        ]);
-        if ($validator->fails()) {
-            Log::debug('Validation:'.json_encode($validator) );
-            return Redirect::back()
-                        ->withErrors($validator)
-                        ->withInput();
-        }
-        $file=$request->file->store('public');
+        // $validator = Validator::make($data, [
+        //     "report_id"=>'required|exists:reports,id'
+        // ]);
+        // if ($validator->fails()) {
+        //     Log::debug('Validation:'.json_encode($validator) );
+        //     return Redirect::back()
+        //                 ->withErrors($validator)
+        //                 ->withInput();
+        // }
+        $file=$request->file->store('files');
         Log::debug("File: ".$file);
         $data['file']=$file;
         $file = File::create($data);

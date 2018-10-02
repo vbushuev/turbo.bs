@@ -154,24 +154,32 @@
                                                     <p>Подходит для ИП на ЕНВД, УСН и УСН+ЕНВД и ООО на ОСНО, ЕНВД, УСН и УСН+ЕНВД</p>
                                         </div>
                                         <div class="registration__form">
-                                            <h3 class="text-center">
-                            Начните бесплатный<br>30-дневный период
-                        </h3>
+                                            <h3 class="text-center">Начните бесплатный<br>30-дневный период</h3>
+
                                             <form action="{{ route('register') }}" method="post" class="form redesign js-bk-registration" data-event-name="registratsia-s-lp" data-dsp-site-area="QYlrZYTu">
                                                 {{ csrf_field() }}
+
                                                 <div class="js-successMessage"></div>
                                                 <div class="form-row">
                                                     <input class="form-input" data-val="true" data-val-emaillocalized="Некорректный электронный адрес" data-val-length="The field Liame must be a string with a maximum length of 100." data-val-length-max="100" data-val-requiredlocalized="Заполните поле" id="RegistrationForm_Liame"
                                                     maxlength="100" name="email" placeholder="Ваша электронная почта" type="text" value="{{ old('email') }}" />
-                                                    <span class="field-validation-valid" data-valmsg-for="RegistrationForm.Liame" data-valmsg-replace="true"></span>
+                                                    <span class="field-validation-valid" data-valmsg-for="RegistrationForm.Liame" data-valmsg-replace="true">
+                                                        @if($errors->has('email'))
+                                                            {{$errors->first('email')}}
+                                                        @endif
+                                                    </span>
                                                 </div>
                                                 <div class="form-row">
                                                     <input class="form-input js-phone" data-val="true" data-val-canonicalphone="Телефон должен состоять из 10 цифр" data-val-requiredlocalized="Заполните поле" id="RegistrationForm_Phone" name="phone" placeholder="Мобильный телефон" type="text" value="{{ old('phone') }}" />
-                                                    <span class="field-validation-valid" data-valmsg-for="RegistrationForm.Phone" data-valmsg-replace="true"></span>
+                                                    <span class="field-validation-valid" data-valmsg-for="RegistrationForm.Phone" data-valmsg-replace="true">
+                                                        @if($errors->has('phone'))
+                                                            {{$errors->first('phone')}}
+                                                        @endif
+                                                    </span>
                                                 </div>
                                                 <input class="hide" id="RegistrationForm_Email" name="RegistrationForm.Email" type="text" value="" />
 
-                                                <input class="hide" id="RegistrationForm_phone" name="RegistrationForm.phone" type="text" value="@if($errors->has('phone')) $errors->first('phone') @endif" />
+                                                <input class="hide" id="RegistrationForm_phone" name="RegistrationForm.phone" type="text" value="" />
 
                                                 <div class="registration__footer">
                                                     <div class="registration__btn">
@@ -541,5 +549,8 @@
             });
         });
     </script>
+    @if(session('register.thanks'))
+
+    @endif
 </body>
 </html>

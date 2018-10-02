@@ -12,4 +12,7 @@ class File extends Model
     public function report(){
         return $this->belongsTo('App\Report');
     }
+    public function user(){
+        return $this->belongsTo('App\User');
+    }
 }
