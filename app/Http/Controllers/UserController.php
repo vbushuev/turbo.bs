@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use App\Notifications\CustomerNewPassword;
 
 class UserController extends Controller
 {
@@ -69,7 +70,13 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $user->update($request->all());
+        $data = $request->all();
+        if(isset($data['password'])){
+            $password = $data['password'];
+            $data['password'] = bcrypt($data['password']);
+            $user->notify(new CustomerNewPassword($user,$password));
+        }
+        $user->update($data);
         return redirect()->back();
     }
 

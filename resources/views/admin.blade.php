@@ -45,7 +45,7 @@
                     @if($item->user->role=="customer" && $item->report->name !='Документы на ЭЦП')
                     <tr>
                         <td>
-                            {{ $item->user->title }}
+                            @include('user.edit',['user'=>$item->user])
                             <br /><small>Зарегестрирован: {{ $item->user->created_at }}</small>
                             <br /><small>Статус: {{ __('admin.user.status.'.$item->user->status) }}</small>
                             @if($item->user->status == 'request')
@@ -108,7 +108,7 @@
                     @if($item->user->role=="customer" && $item->report->name =='Документы на ЭЦП' && $item->user->status == 'request')
                     <tr>
                         <td>
-                            {{ $item->user->title }}
+                            @include('user.edit',['user'=>$item->user])
                             <br /><small>Зарегестрирован: {{ $item->user->created_at }}</small>
                             <br /><small>Статус: {{ __('admin.user.status.'.$item->user->status) }}</small>
                             @if($item->user->status == 'request')
