@@ -31,7 +31,7 @@ class AdminController extends Controller
         $users = User::onlyCustomers()->get();
         $companies = Company::all();
         $reports = Report::all();
-        $files = File::orderBy('id');
+        $files = File::orderBy('id','desc');
         if(strlen($request->input('search',''))){
             $se = "%{$request->search}%";
             $files->whereIn('user_id',User::where('name','like',$se)->orWhere('email','like',$se)->pluck('id'));
@@ -50,7 +50,7 @@ class AdminController extends Controller
             'users'=>$users,
             'companies'=>$companies,
             'reports'=>$reports,
-            'files'=>$files->orderBy('id','desc')->get(),
+            'files'=>$files->get(),
         ]);
     }
 }

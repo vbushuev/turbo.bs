@@ -1,15 +1,15 @@
 @extends('layouts.app')
 @section('content')
-<div class="container">
-
+<div class="container vsb admin">
+    <h2>{{ __('home.common') }}</h2>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item"><a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Отчеты</a></li>
+        <li class="nav-item"><a class="nav-link" id="etsp-tab" data-toggle="tab" href="#etsp" role="tab" aria-controls="profile" aria-selected="false">Новые клиенты</a></li>
+    </ul>
     <div class="tab-content" id="myTabContent">
-        <div class="tab-pane  show active" id="customers" role="tabpanel" aria-labelledby="customers-tab">
-            <h2>
-                {{ __('home.common') }}
-            </h2>
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
             <div class="form">
                 <form class="form-inline">
-
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"></i></span>
@@ -42,7 +42,7 @@
                 </thead>
                 <tbody>
                     @foreach($files as $item)
-                    @if($item->user->role=="customer")
+                    @if($item->user->role=="customer" && $item->report->name !='Документы на ЭЦП')
                     <tr>
                         <td>
                             {{ $item->user->title }}
@@ -87,6 +87,49 @@
                             @endif
 
                         </td>
+                    </tr>
+                    @endif
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="etsp" role="tabpanel" aria-labelledby="etsp-tab">
+            <table class="ui table">
+                <thead>
+                    <tr>
+                        <th>{{ __('admin.customer') }}</th>
+                        <th>{{ __('admin.report.name') }}</th>
+                        <th>{{ __('admin.report.date') }}</th>
+                        <th>{{ __('admin.file.file') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($files as $item)
+                    @if($item->user->role=="customer" && $item->report->name =='Документы на ЭЦП' && $item->user->status == 'request')
+                    <tr>
+                        <td>
+                            {{ $item->user->title }}
+                            <br /><small>Зарегестрирован: {{ $item->user->created_at }}</small>
+                            <br /><small>Статус: {{ __('admin.user.status.'.$item->user->status) }}</small>
+                            @if($item->user->status == 'request')
+                                <br /><button class="btn btn-primary" onclick="document.set_user_{{$item->id}}_new.submit();">Подтвертить пользователя</button>
+                                <form action="/user/{{$item->user->id}}" method="POST" name="set_user_{{$item->id}}_new" id="set_user_{{$item->id}}_new">
+                                    {{ csrf_field() }}
+                                    {{ method_field('PUT') }}
+                                    <input type="hidden" name="status" value="new" />
+                                </form>
+                            @elseif($item->user->status == 'new')
+                                <button class="btn btn-primary" onclick="document.set_user_{{$item->id}}_etsp.submit();">ЭЦП получен</button>
+                                <form action="/user/{{$item->user->id}}" method="POST" name="set_user_{{$item->id}}_etsp" id="set_user_{{$item->id}}_etsp">
+                                    {{ csrf_field() }}
+                                    {{ method_field('PUT') }}
+                                    <input type="hidden" name="status" value="ready" />
+                                </form>
+                            @endif
+                        </td>
+                        <td>{{ $item->report->name }}</td>
+                        <td>{{ $item->report->created_at }}</td>
+                        <td><a href="{{ $item->file }}" download>Скачать <i class="fa fa-file-download"></i></a></td>
                     </tr>
                     @endif
                     @endforeach
