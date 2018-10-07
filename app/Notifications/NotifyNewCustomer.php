@@ -7,21 +7,18 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class CustomerRegister extends Notification
+class NotifyNewCustomer extends Notification
 {
     use Queueable;
 
-    protected $customer;
-    protected $password;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($customer,$password)
+    public function __construct($user)
     {
-        $this->customer = $customer;
-        $this->password = $password;
+        $this->customer = $user;
     }
 
     /**
@@ -44,12 +41,9 @@ class CustomerRegister extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject('Регистрация.Турбо-Отчет')
-                    ->line('Вы успешно зарегистрировались на веб-сервисе Турбо.Отчет')
-                    ->line('Ваш логин: '.$this->customer->email)
-                    ->line('Ваш пароль: <b>'.$this->password.'</b>')
-                    ->action('Начать пользоваться', url('/login'))
-                    ->line('Первый месяц пользования &mdash; БЕСПЛАТНО!');
+                    ->line('Зарегистрировался новый клиент.')
+                    ->line('Email: '.$this->customer->email)
+                    ->line('Номер телефона: <b>'.$this->customer->phone.'</b>');
     }
 
     /**

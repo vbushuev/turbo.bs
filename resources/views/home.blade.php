@@ -32,11 +32,9 @@
             <h2>
                 {{ __('home.common') }}
             </h2>
+            @include('common.needhelp')
             @if(Auth::user()->status == "ready")
                 @include('file.create')
-                @include('common.needhelp')
-
-
                 <table class="vsb table" style="margin-top: 2em;">
                     <thead>
                         <tr>

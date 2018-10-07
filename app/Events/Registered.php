@@ -19,11 +19,11 @@ class Registered
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($user)
     {
-        //
+        $this->user= $user;
     }
-
+    public $user;
     /**
      * Get the channels the event should broadcast on.
      *

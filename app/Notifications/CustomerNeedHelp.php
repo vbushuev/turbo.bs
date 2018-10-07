@@ -44,7 +44,7 @@ class CustomerNeedHelp extends Notification
                     ->subject('Запрос помощи.Турбо-Отчет')
                     ->line('Клиент обратился за помощью')
                     ->line('Клиент #: <b>'.$this->customer->id.'</b>')
-                    ->line('Почта: <b>'.$this->customer->email.'</b>')
+                    ->line('Почта: '.$this->customer->email)
                     ->line('Телефон: <b>'.$this->customer->phone.'</b>');
     }
 

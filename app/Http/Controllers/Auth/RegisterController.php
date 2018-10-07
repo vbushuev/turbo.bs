@@ -6,6 +6,7 @@ use App\User;
 
 use Illuminate\Http\Request;
 use App\Notifications\CustomerRegister;
+use App\Notifications\NotifyNewCustomer;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
@@ -81,9 +82,11 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $this->validator($request->all())->validate();
-
-        event(new Registered($user = $this->create($request->all())));
-
+        $user = $this->create($request->all());
+        event(new Registered($user));
+        foreach(User::where('role','admin')->where('email','t.otchet@mail.ru')->get() as $admin){
+            $admin->notify(new NotifyNewCustomer($user));
+        }
         //$this->guard()->login($user);
 
         return $this->registered($request, $user)
