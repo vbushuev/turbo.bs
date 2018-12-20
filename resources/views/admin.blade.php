@@ -105,7 +105,7 @@
                 </thead>
                 <tbody>
                     @foreach($files as $item)
-                    @if($item->user->role=="customer" && $item->report->name =='Документы на ЭЦП' && $item->user->status == 'request')
+                    @if($item->user->role=="customer" && $item->report->name =='Документы на ЭЦП' && in_array($item->user->status,['request','new']))
                     <tr>
                         <td>
                             @include('user.edit',['user'=>$item->user])
